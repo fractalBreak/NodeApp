@@ -5,7 +5,7 @@ const app = express();
 import {readFile} from 'fs';
 /* callback method */
 app.get('/', (request, response) => {
-    readFile('./home.html', 'utf8', (err, html) => {
+    readFile('./snake/snakeCopy.html', 'utf8', (err, html) => {
         if(err){
             response.status(500).send('sorry, out of order');
         }
