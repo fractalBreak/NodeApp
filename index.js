@@ -1,6 +1,7 @@
 //const express = require('express');
 import express from 'express';
 const app = express();
+const PORT = 8080;
 //const {readFile} = require('fs');
 import {readFile} from 'fs';
 /* callback method */
@@ -14,6 +15,9 @@ app.get('/', (request, response) => {
 
 });
 
+app.get('/tshirt', (request, response) => {
+    response.send()
+});
 /* promise method 
 app.get('/', async (request, response) => {
 
@@ -22,4 +26,6 @@ app.get('/', async (request, response) => {
 });
 */
 
-app.listen(process.env.PORT || 3000, () => console.log('App available on http://localhost:3000'));
+app.listen(
+    process.env.PORT || PORT, 
+    () => console.log(`pp available on http://localhost:${PORT}`));
