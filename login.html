@@ -11,12 +11,12 @@
             <button type="button" class="toggle-btn" onclick="login()">Log In</button>
             <button type="button" class="toggle-btn" onclick="register()">Register</button>
         </div>
-        <form id="login" class="input-group">
+        <form action="http://localhost:3000" id="login" method="post" class="input-group">
             <input type="text" class="input-field" placeholder="User Id" required>
             <input type="text" class="input-field" placeholder="Enter Password" required>
             <button type="submit" class="submit-btn">Log In</button>
         </form>
-        <form id="register" class="input-group">
+        <form action="http://localhost:3000" id="register" method="post" class="input-group">
             <input type="text" class="input-field" placeholder="User Id" required>
             <input type="email" class="input-field" placeholder="Email Id" required>
             <input type="text" class="input-field" placeholder="Enter Password" required>
@@ -25,6 +25,20 @@
     </div>
   </div>
   <script>
+
+      var form = document.getElementById('login');
+      form.addEventListener("submit", e =>{
+          e.preventDefault();
+          fetch(form.action, {
+            method: "POST",
+            body: new FormData(document.getElementById("login")),
+          }).then(
+            response => response.json()
+          ).then((html) => {
+            alert("Registration Complete")
+          })
+      })
+
       var x = document.getElementById("login");
       var y = document.getElementById("register");
       var z = document.getElementById("btn");
