@@ -11,8 +11,8 @@ CREATE TABLE employee (
 );
 ALTER TABLE employee AUTO_INCREMENT=11001;
 CREATE TABLE job_type (
-    id          SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    type_name   VARCHAR(30) NOT NULL,
+    id            SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    job_type_name VARCHAR(30) NOT NULL,
     CONSTRAINT job_type_pk PRIMARY KEY (id)
 );
 CREATE TABLE job (
@@ -45,7 +45,7 @@ CREATE TABLE employee_jobs (
         ON DELETE CASCADE 
         ON UPDATE CASCADE
 );
-CREATE TABLE jobs_types (
+CREATE TABLE job_types (
 	job_id		integer UNSIGNED,
     job_type_id	SMALLINT UNSIGNED,
     CONSTRAINT jobs_types_pk
@@ -59,6 +59,8 @@ CREATE TABLE jobs_types (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+/*--- Views
 CREATE VIEW employees AS
     SELECT  
         name_last  AS 'Last Name',
@@ -83,6 +85,9 @@ CREATE VIEW upcoming_jobs AS
         job_start > NOW()
     ORDER BY
         job_start;
+---*/
+
+/*---Procedures---*/
 DELIMITER $$
 CREATE PROCEDURE add_employee(
     IN name_first_param VARCHAR(15),
@@ -94,33 +99,55 @@ BEGIN
         employee (name_first, name_last, phone_number)
     VALUES 
 		(name_first_param, name_last_param, phone_number_param);
-END
-
-$$
+END $$
 DELIMITER $$
 CREATE PROCEDURE delete_employee(
     IN employee_id_param SMALLINT
     )
 BEGIN
     DELETE FROM employee WHERE id = employee_id_param;
-END
-$$
-
+END $$
 DELIMITER $$
-CREATE PROCEDURE update_employee_phone (
+CREATE PROCEDURE edit_employee (
     IN employee_id_param SMALLINT,
+    IN employee_name_first_param VARCHAR(15),
+    IN employee_name_last_param VARCHAR(15),
     IN employee_phone_param VARCHAR(10)
     )
 BEGIN
     UPDATE
         employee
     SET
+        name_first = employee_name_first_param,
+        name_last = employee_name_last_param,
         phone_number = employee_phone_param
     WHERE
         id = employee_id_param;
-END
-$$
-
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_employees (
+    )
+BEGIN
+    SELECT
+        name_first + ' ' + name_last AS 'Name',
+        phone_number AS 'Phone Number'
+    FROM
+        employee
+    ORDER BY
+        name_last;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_employee_details (
+    IN employee_id_param SMALLINT
+    )
+BEGIN
+    SELECT
+        *
+    FROM
+        employee
+    WHERE
+        id = employee_id_param;
+END $$
 DELIMITER $$
 CREATE PROCEDURE add_job (
     IN job_contact_param  VARCHAR(30),
@@ -131,7 +158,7 @@ CREATE PROCEDURE add_job (
     IN job_zip_param      NUMERIC(5),
     IN job_type_param     SMALLINT,
     IN job_start_param    DATETIME,
-    IN job_estimate_param integer,
+    IN job_estimate_param integer
     )
 BEGIN
     INSERT INTO job (
@@ -139,7 +166,7 @@ BEGIN
         job_phone,
         job_address,
         job_city,
-        job_start,
+        job_state,
         job_zip,
         job_type,
         job_start,
@@ -150,27 +177,109 @@ BEGIN
         job_phone_param,
         job_address_param,
         job_city_param,
-        job_start_param,
+        job_state_param,
         job_zip_param,
         job_type_param,
         job_start_param,
         job_estimate_param
-    )
-END
-$$
-
+    );
+END $$
 DELIMITER $$
 CREATE PROCEDURE delete_job (
     IN job_id_param integer
     )
 BEGIN
     DELETE FROM job WHERE id = job_id_param;
-END
-$$
-
+END $$
+DELIMITER $$
+CREATE PROCEDURE edit_job (
+    IN job_id_param       integer,
+    IN job_contact_param  VARCHAR(30),
+    IN job_phone_param    VARCHAR(10),
+    IN job_address_param  VARCHAR(30),
+    IN job_city_param     VARCHAR(30),
+    IN job_state_param    VARCHAR(15),
+    IN job_zip_param      NUMERIC(5),
+    IN job_type_param     SMALLINT,
+    IN job_start_param    DATETIME,
+    IN job_estimate_param TINYINT
+    )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_contact = job_contact_param,
+        job_phone = job_phone_param,
+        job_address = job_address_param,
+        job_city = job_city_param,
+        job_state = job_state_param,
+        job_zip = job_zip_param,
+        job_type = job_type_param,
+        job_start = job_start_param,
+        job_estimate = job_estimate_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_jobs_upcoming (
+    )
+BEGIN
+    SELECT
+        job.job_start AS 'Appointment',
+        job_type.job_type_name AS 'Service',
+        CONCAT(job.job_address , ' '  , 
+               job.job_city    , ', ' , 
+               job.job_state   , ' '  , 
+               job.job_zip) AS 'Address',
+        CONCAT(job.job_contact ,' - ' , 
+               job.job_phone) AS 'Customer'
+    FROM
+        job INNER JOIN job_type ON job.job_type = job_type.id
+    WHERE
+        job_start > NOW()
+    ORDER BY
+        job_start;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_jobs_all (
+    )
+BEGIN
+    SELECT
+        job.job_start AS 'Appointment',
+        job_type.job_type_name AS 'Service',
+        CONCAT(job.job_address , ' '  , 
+               job.job_city    , ', ' , 
+               job.job_state   , ' '  , 
+               job.job_zip) AS 'Address',
+        CONCAT(job.job_contact ,' - ' , 
+               job.job_phone) AS 'Customer'
+    FROM
+        job INNER JOIN job_type ON job.job_type = job_type.id
+    ORDER BY
+        job_start;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_details (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job.job_start AS 'Appointment',
+        job_type.job_type_name AS 'Service',
+        CONCAT(job.job_address , ' '  , 
+               job.job_city    , ', ' , 
+               job.job_state   , ' '  , 
+               job.job_zip) AS 'Address',
+        CONCAT(job.job_contact ,' - ' , 
+               job.job_phone) AS 'Customer'
+    FROM
+        job INNER JOIN job_type ON job.job_type = job_type.id
+    WHERE
+        job.id = job_id_param;
+END $$
 DELIMITER $$
 CREATE PROCEDURE reschedule_job (
-    IN job_id_param,
+    IN job_id_param integer,
     IN job_start_param DATETIME
     )
 BEGIN
@@ -180,30 +289,63 @@ BEGIN
         job_start = job_start_param
     WHERE
         id = job_id_param;
-END
-$$
-
+END $$
+DELIMITER $$
+CREATE PROCEDURE assign_workers_to_job (
+    IN employee_id_param SMALLINT,
+    IN job_id_param integer
+    )
+BEGIN
+    INSERT INTO employee_jobs (
+        employee_id,
+        job_id
+        )
+    VALUES (
+        employee_id_param,
+        job_id_param
+    );
+END $$
+DELIMITER $$
+CREATE PROCEDURE remove_workers_from_job (
+    IN employee_id_param SMALLINT,
+    IN job_id_param integer
+    )
+BEGIN
+    DELETE FROM 
+        employee_jobs
+    WHERE
+        job_id = job_id_param AND
+        employee_id = employee_id_param;
+END $$
 DELIMITER $$
 CREATE PROCEDURE add_job_type(
     IN job_type_param VARCHAR(28)
     )
 BEGIN
     INSERT INTO 
-        job_type(type_name)
+        job_type(job_type_name)
     VALUES      
         (job_type_param);
-END
-$$
-
+END $$
 DELIMITER $$
-CREATE PROCEDURE get_individual_schedule(
+CREATE PROCEDURE delete_job_type (
+    IN job_type_id_param SMALLINT
+    )
+BEGIN
+    DELETE FROM
+        job_type
+    WHERE
+        id = job_type_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_individual_schedule (
     IN employee_id_param SMALLINT
     )
 BEGIN
     SELECT 
-	    e.name_first AS employee_name,
-	    j.job_address AS adress,
-        j.job_start AS start_time
+	    CONCAT(e.name_first , ' ' , e.name_last) AS 'Employee',
+	    j.job_address AS 'Address',
+        j.job_start AS 'Start Time'
     FROM
 	    employee_jobs ej
     INNER JOIN
@@ -211,18 +353,16 @@ BEGIN
     INNER JOIN
 	    employee e ON ej.employee_id = e.id
     WHERE e.id = employee_id_param;
-END
-$$
-
+END $$
 DELIMITER $$
-CREATE PROCEDURE get_workers(
+CREATE PROCEDURE get_workers_on_job (
     IN job_id_param integer
     )
 BEGIN
     SELECT 
-    	j.job_address AS adress,
-        j.job_start AS start_time,
-	    e.name_first AS employee_name
+    	j.job_address AS 'Address',
+        j.job_start AS 'Start Time',
+	    CONCAT(e.name_first, ' ' , e.name_last) AS 'Employee'
     FROM
 	    employee_jobs ej
     INNER JOIN
@@ -236,5 +376,4 @@ $$
 DELIMITER $$
 CREATE PROCEDURE placeholder ()
 BEGIN
-END
-$$
+END $$
