@@ -1,26 +1,40 @@
-import mysql from 'mysql2';
+import mysql from 'mysql2'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'Bobcat777!',
-    database: 'apointdb'
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
 }).promise();
 
-async function getTestTable() {
-    const [rows] = await pool.query("SELECT * FROM apointdb.users");
-    return rows;
+async function getEmployeeList() {
+    const [rows] = await pool.query(`
+    SELECT * 
+    FROM apointdb.employee`)
+    return rows
+}
+async function newEmployee (nameFirst , nameLast , number) {
+    const [rows] = await pool.query(`
+    INSERT INTO apointdb.employee (nameFirst , nameLast , phoneNumber)
+    VALUES (? , ?)
+    `, [nameFirst , nameLast , number])
+    return rows
+}
+async function getEmployee (id) {
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM apointdb.employee
+    WHERE id = ?
+    `, [id])
+    return rows
 }
 
-async function getTestable() {
-    const [rows] = await pool.query("INSERT INTO `apointdb`.`users` (`UserName`, `UserPass`) VALUES ('Bob', 'wordpass');");
-    return rows;
-}
-
-//delete row = DELETE FROM `apointdb`.`users` WHERE (`UserID` = '3');
-const testTable = await getTestTable();
-console.log(testTable);
-const testable = await getTestable();
-console.log(testable);
-const testTable2 = await getTestTable();
-console.log(testTable2);
+const employees = await getEmployeeList();
+console.log(employees);
+const Johnny = await newEmployee('johhny' , '9041234567');
+console.log(Johnny);
+const single = await getEmployee(0);
+console.log(single);
+console.log(employees);
