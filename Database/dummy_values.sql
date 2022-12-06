@@ -19,10 +19,10 @@ INSERT INTO employee (name_first , name_last)
 VALUES ('steve' , 'jobs');
 
 INSERT INTO employee_jobs (employee_id , job_id)
-VALUES (1 , 1);
+VALUES (11001 , 100001);
 INSERT INTO employee_jobs (employee_id , job_id)
-VALUES (1 , 2);
+VALUES (11001 , 100002);
 INSERT INTO employee_jobs (employee_id , job_id)
-VALUES (2 , 1);
+VALUES (11002 , 100001);
 INSERT INTO employee_jobs (employee_id , job_id)
-VALUES (2 , 2);
+VALUES (11002 , 100002);
