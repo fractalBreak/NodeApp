@@ -27,6 +27,7 @@ CREATE TABLE job (
     job_start    DATETIME NOT NULL,
     job_estimate integer NOT NULL,
     date_created DATETIME NOT NULL DEFAULT NOW(),
+    job_notes    TEXT DEFAULT NULL,
     CONSTRAINT job_pk PRIMARY KEY (id),
     CONSTRAINT job_type_fk
 		FOREIGN KEY (job_type) REFERENCES job_type(id)
@@ -185,6 +186,19 @@ BEGIN
     );
 END $$
 DELIMITER $$
+CREATE PROCEDURE add_job_notes (
+    IN job_id_param integer,
+    IN job_notes_param TEXT
+        )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_notes = job_notes_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
 CREATE PROCEDURE delete_job (
     IN job_id_param integer
     )
@@ -232,7 +246,8 @@ BEGIN
                job.job_state   , ' '  , 
                job.job_zip) AS 'Address',
         CONCAT(job.job_contact ,' - ' , 
-               job.job_phone) AS 'Customer'
+               job.job_phone) AS 'Customer',
+        job.job_notes AS 'Info'
     FROM
         job INNER JOIN job_type ON job.job_type = job_type.id
     WHERE
@@ -252,7 +267,8 @@ BEGIN
                job.job_state   , ' '  , 
                job.job_zip) AS 'Address',
         CONCAT(job.job_contact ,' - ' , 
-               job.job_phone) AS 'Customer'
+               job.job_phone) AS 'Customer',
+        job.job_notes AS 'Info'
     FROM
         job INNER JOIN job_type ON job.job_type = job_type.id
     ORDER BY
@@ -271,7 +287,8 @@ BEGIN
                job.job_state   , ' '  , 
                job.job_zip) AS 'Address',
         CONCAT(job.job_contact ,' - ' , 
-               job.job_phone) AS 'Customer'
+               job.job_phone) AS 'Customer',
+        job.job_notes AS 'Info'
     FROM
         job INNER JOIN job_type ON job.job_type = job_type.id
     WHERE
