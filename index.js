@@ -4,8 +4,9 @@ const app = express();
 //const {readFile} = require('fs');
 import {readFile} from 'fs';
 /* callback method */
+app.use("/Calendar",express.static("./Calendar"));
 app.get('/', (request, response) => {
-    readFile('./home.html', 'utf8', (err, html) => {
+    readFile('./login.html', 'utf8', (err, html) => {
         if(err){
             response.status(500).send('sorry, out of order');
         }
