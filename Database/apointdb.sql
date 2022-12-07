@@ -25,7 +25,7 @@ CREATE TABLE job (
     job_zip      NUMERIC(5) NOT NULL,
     job_type     SMALLINT UNSIGNED,
     job_start    DATETIME NOT NULL,
-    job_estimate integer NOT NULL,
+    job_estimate TINYINT NOT NULL,
     date_created DATETIME NOT NULL DEFAULT NOW(),
     job_notes    TEXT DEFAULT NULL,
     CONSTRAINT job_pk PRIMARY KEY (id),
@@ -88,7 +88,8 @@ CREATE VIEW upcoming_jobs AS
         job_start;
 ---*/
 
-/*---Procedures---*/
+/*---PROCEDURES----------*/
+/*------EMPLOYEES--------*/
 DELIMITER $$
 CREATE PROCEDURE add_employee(
     IN name_first_param VARCHAR(15),
@@ -107,6 +108,109 @@ CREATE PROCEDURE delete_employee(
     )
 BEGIN
     DELETE FROM employee WHERE id = employee_id_param;
+END $$
+/*---------GETS----------*/
+DELIMITER $$
+CREATE PROCEDURE get_employee_id (
+    IN employee_name_first_param VARCHAR(15),
+    IN employee_name_last_param VARCHAR(15)
+    )
+BEGIN
+    SELECT
+        id
+    FROM
+        employee
+    WHERE
+        ((name_first = employee_name_first_param) AND
+        (name_last = employee_name_last_param));
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_employee_name_first (
+    IN employee_id_param SMALLINT
+    )
+BEGIN
+    SELECT
+        name_first
+    FROM
+        employee
+    WHERE
+        id = employee_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_employee_name_last (
+    IN employee_id_param SMALLINT
+    )
+BEGIN
+    SELECT
+        name_last
+    FROM
+        employee
+    WHERE
+        id = employee_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_employee_phone_number (
+    IN employee_id_param SMALLINT
+    )
+BEGIN
+    SELECT
+        phone_number
+    FROM
+        employee
+    WHERE
+        id = employee_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_employee_date_hired (
+    IN employee_id_param SMALLINT
+    )
+BEGIN
+    SELECT
+        date_hired
+    FROM
+        employee
+    WHERE
+        id = employee_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_employee_name_first (
+    in employee_id_param SMALLINT,
+    IN employee_name_first_param VARCHAR(15)
+        )
+BEGIN
+    UPDATE
+        employee
+    SET
+        name_first = employee_name_first_param
+    WHERE
+        id = employee_id_param;
+END $$
+/*---------SETS----------*/
+DELIMITER $$
+CREATE PROCEDURE set_employee_name_last (
+    in employee_id_param SMALLINT,
+    IN employee_name_last_param VARCHAR(15)
+        )
+BEGIN
+    UPDATE
+        employee
+    SET
+        name_last = employee_name_last_param
+    WHERE
+        id = employee_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_employee_phone_number (
+    in employee_id_param SMALLINT,
+    IN employee_name_phone_number_param VARCHAR(10)
+        )
+BEGIN
+    UPDATE
+        employee
+    SET
+        phone_number = employee_name_phone_number_param
+    WHERE
+        id = employee_id_param;
 END $$
 DELIMITER $$
 CREATE PROCEDURE edit_employee (
@@ -149,6 +253,7 @@ BEGIN
     WHERE
         id = employee_id_param;
 END $$
+/*------JOBS-------------*/
 DELIMITER $$
 CREATE PROCEDURE add_job (
     IN job_contact_param  VARCHAR(30),
@@ -159,7 +264,7 @@ CREATE PROCEDURE add_job (
     IN job_zip_param      NUMERIC(5),
     IN job_type_param     SMALLINT,
     IN job_start_param    DATETIME,
-    IN job_estimate_param integer
+    IN job_estimate_param TINYINT
     )
 BEGIN
     INSERT INTO job (
@@ -186,7 +291,277 @@ BEGIN
     );
 END $$
 DELIMITER $$
-CREATE PROCEDURE add_job_notes (
+CREATE PROCEDURE delete_job (
+    IN job_id_param integer
+    )
+BEGIN
+    DELETE FROM job WHERE id = job_id_param;
+END $$
+/*---------GETS----------*/
+DELIMITER $$
+CREATE PROCEDURE get_job_id (
+    IN job_phone_param VARCHAR(10)
+    )
+BEGIN
+    SELECT
+        id
+    FROM
+        job
+    WHERE
+        job_phone = job_phone_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_contact (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_contact
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_phone (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_phone
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_address (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_address
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_city (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_city
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_state (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_state
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_zip (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_zip
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_type (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_type
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_start (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_start
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_estimate (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_estimate
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_date_created (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        date_created
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE get_job_notes (
+    IN job_id_param integer
+    )
+BEGIN
+    SELECT
+        job_notes
+    FROM
+        job
+    WHERE
+        id = job_id_param;
+END $$
+/*---------SETS----------*/
+DELIMITER $$
+CREATE PROCEDURE set_job_contact (
+    IN job_id_param integer,
+    IN job_contact_param VARCHAR(30)
+    )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_contact = job_contact_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_phone (
+    IN job_id_param integer,
+    IN job_phone_param TEXT
+    )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_phone = job_phone_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_address (
+    IN job_id_param integer,
+    IN job_address_param VARCHAR(30)
+        )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_address = job_address_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_city (
+    IN job_id_param integer,
+    IN job_city_param VARCHAR(15)
+        )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_city = job_city_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_state (
+    IN job_id_param integer,
+    IN job_state_param VARCHAR(15)
+        )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_state = job_state_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_zip (
+    IN job_id_param integer,
+    IN job_zip_param VARCHAR(5)
+        )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_zip = job_zip_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_type (
+    IN job_id_param integer,
+    IN job_type_param TINYINT
+        )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_type = job_type_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_start (
+    IN job_id_param integer,
+    IN job_start_param DATETIME
+        )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_start = job_start_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_estimate (
+    IN job_id_param integer,
+    IN job_estimate_param TINYINT
+        )
+BEGIN
+    UPDATE
+        job
+    SET
+        job_estimate = job_estimate_param
+    WHERE
+        id = job_id_param;
+END $$
+DELIMITER $$
+CREATE PROCEDURE set_job_notes (
     IN job_id_param integer,
     IN job_notes_param TEXT
         )
@@ -197,13 +572,6 @@ BEGIN
         job_notes = job_notes_param
     WHERE
         id = job_id_param;
-END $$
-DELIMITER $$
-CREATE PROCEDURE delete_job (
-    IN job_id_param integer
-    )
-BEGIN
-    DELETE FROM job WHERE id = job_id_param;
 END $$
 DELIMITER $$
 CREATE PROCEDURE edit_job (
@@ -234,6 +602,7 @@ BEGIN
     WHERE
         id = job_id_param;
 END $$
+/*------SPECIAL----------*/
 DELIMITER $$
 CREATE PROCEDURE get_jobs_upcoming (
     )
