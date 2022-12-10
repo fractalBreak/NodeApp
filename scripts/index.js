@@ -9,9 +9,8 @@ import jobsRouter from './routes/Jobs.js';
 const app = express();
 const PORT = 8080;
 
-/* callback method */
+/* universal middleware */
 app.use("/css",express.static("./css"));
-
 app.use(express.json());
 app.use(
   express.urlencoded({

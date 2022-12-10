@@ -11,7 +11,7 @@ employeeRouter.route('/')
   });
 */
 
-/* GET */
+/* GET ALL Employees */
 employeeRouter.route('/')
   .get(async function(req, res, next) {
     //console.log('ping!');
@@ -22,5 +22,17 @@ employeeRouter.route('/')
         next(err);
       }
   });
-  
-  
+
+
+employeeRouter.route('/:id')
+  .get(async function(req, res, next) {
+    //console.log('ping!');
+    console.log('HERE: '+req.params['id']);
+      try {
+        res.json(await employees.getEmployeeById(req.params['id']));
+      } catch (err) {
+        console.error(`Error while getting all employees: `, err.message);
+        next(err);
+      }
+  });
+ 

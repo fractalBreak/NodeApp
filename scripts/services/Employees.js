@@ -17,3 +17,21 @@ export default async function getAllEmployees(page = 1){
   }
 }
 
+export async function getEmployeeById(id, page = 1){
+  console.log('by id called: '+id);
+  const offset = helper.default(page, config.listPerPage);
+  const rows = await db.default(
+    `SELECT *
+    FROM apointdb.Employee 
+    WHERE id = ${id}`
+  );
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+    data,
+    meta
+  }
+}
+
+
