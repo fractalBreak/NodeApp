@@ -1,7 +1,7 @@
 
 import express from 'express';
 import {readFile} from 'fs';
-import loginRouter from './routes/login.js';
+import calendarRouter from './routes/calendar.js';
 import employeesRouter from './routes/Employees.js';
 import config from './config.js';
 import jobsRouter from './routes/Jobs.js';
@@ -19,7 +19,7 @@ app.use(
 );
 
 /* Routers */ 
-app.use("/", loginRouter);
+app.use("/", calendarRouter);
 app.use("/Employees", employeesRouter);
 app.use("/Jobs", jobsRouter);
 

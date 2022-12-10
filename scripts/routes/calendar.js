@@ -5,7 +5,7 @@ import * as login from '../services/login.js';
 
 // GET LOGIN PAGE
 export default router.get('/', async (request, response) => {
-    readFile('./HTML/login.html', 'utf8', (err, html) => {
+    readFile('./HTML/index.html', 'utf8', (err, html) => {
         if(err){
             response.status(500).send('sorry, out of order');
         }
