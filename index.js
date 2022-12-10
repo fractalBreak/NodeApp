@@ -2,7 +2,7 @@
 import express from 'express';
 //const {readFile} = require('fs');
 import {readFile} from 'fs';
-import employeesRouter from './routes/Employees.js';
+import employeesRouter from './scripts/routes/Employees.js';
 
 const app = express();
 const PORT = 8080;
