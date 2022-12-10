@@ -3,7 +3,7 @@ import express from 'express';
 const router = express.Router();
 import * as employees from '../services/Employees.js';
 
-/* GET programming languages. */
+/* GET */
 export default router.get('/', async function(req, res, next) {
     try {
       res.json(await employees.default(req.query.page));

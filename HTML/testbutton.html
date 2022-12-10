@@ -1,0 +1,63 @@
+<html>
+   <head>
+      <title>Send Request to API</title>
+   </head>
+   <body>
+      <h1>Send Request to API</h1>
+      <button id="sendReqBtn">Send Request</button>
+      <div>
+         <table>
+            <tr>
+               <th>ID</th>
+               <th>Name</th>
+            </tr>
+            <tbody id="tableRow">
+
+            </tbody>
+         </table>
+      </div>
+      <script>
+         // Get the button
+         const button = document.getElementById('sendReqBtn');
+
+         // Listen for click event on the button
+         button.addEventListener('click', function() {
+
+            // Create new xhr object
+            const xhr = new XMLHttpRequest();
+
+            // Open a new connection
+            console.log('create request');
+            xhr.open('GET', 'http://localhost:8080/employees');
+            console.log('before send: '+xhr.responseText);
+            // Send request
+            console.log('sending request');
+            xhr.send();
+            console.log('request sent');
+
+            // Listen for response
+            xhr.onload = function() {
+               const response = JSON.parse(xhr.responseText);
+               console.log('response: '+response.data)
+               // Get the table row
+               const tableRow = document.getElementById('tableRow');
+               
+               // Append the data to the table
+               response.data.forEach(function(employeeRecord) {
+                  const row = document.createElement('tr');
+                  const id = document.createElement('td');
+                  const name = document.createElement('td');
+
+                  id.innerHTML = employeeRecord.id;
+                  name.innerHTML = employeeRecord.name_first;
+
+                  row.appendChild(id);
+                  row.appendChild(name);
+
+                  tableRow.appendChild(row);
+               });
+            }
+         });
+      </script>
+   </body>
+</html>
