@@ -6,7 +6,7 @@
 }
 
 html{
-    font-size: 69%;
+    font-size: 62.5%;
 }
 
 .container{
@@ -20,8 +20,8 @@ html{
 }
 
 .calendar{
-    width: 90rem;
-    height: 104rem;
+    width: 45rem;
+    height: 52rem;
     background-color: #222227;
     box-shadow: 0 .5rem 3rem rgba(0, 0, 0, 0.4);
 }
@@ -67,7 +67,7 @@ html{
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: .1rem;
-    width: calc(89.2rem/7);
+    width: calc(44.2rem/7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,8 +83,8 @@ html{
 
 .days div{
     font-size: 1.4rem;
-    margin: .65rem;
-    width: calc(80.4rem/7);
+    margin: .3rem;
+    width: calc(40.2rem/7);
     height: 5rem;
     display: flex;
     justify-content: center;
