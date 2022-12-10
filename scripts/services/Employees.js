@@ -2,7 +2,7 @@ import * as db from './db.js';
 import * as helper from '../helper.js';
 import config from '../config.js';
 
-export default async function getEmployees(page = 1){
+export default async function getAllEmployees(page = 1){
   const offset = helper.default(page, config.listPerPage);
   const rows = await db.default(
     `SELECT *
