@@ -4,6 +4,7 @@ import {readFile} from 'fs';
 import loginRouter from './routes/login.js';
 import employeesRouter from './routes/Employees.js';
 import config from './config.js';
+import jobsRouter from './routes/Jobs.js';
 
 const app = express();
 const PORT = 8080;
@@ -21,6 +22,7 @@ app.use(
 /* Routers */ 
 app.use("/", loginRouter);
 app.use("/Employees", employeesRouter);
+app.use("/Jobs", jobsRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
