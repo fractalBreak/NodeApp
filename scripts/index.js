@@ -1,8 +1,8 @@
-//const express = require('express');
+
 import express from 'express';
-//const {readFile} = require('fs');
 import {readFile} from 'fs';
 import employeesRouter from './routes/Employees.js';
+import config from './config.js';
 
 const app = express();
 const PORT = 8080;
@@ -20,7 +20,7 @@ app.use(
 
 // GET LOGIN PAGE
 app.get('/', (request, response) => {
-    readFile('./HTML/testbutton.html', 'utf8', (err, html) => {
+    readFile('./HTML/login.html', 'utf8', (err, html) => {
         if(err){
             response.status(500).send('sorry, out of order');
         }
@@ -28,7 +28,8 @@ app.get('/', (request, response) => {
     })
 });
 
-/* Routers */
+/* Routers */ 
+//app.use("/", loginRouter);
 app.use("/Employees", employeesRouter);
 
 /* Error handler middleware */
@@ -39,14 +40,7 @@ app.use((err, req, res, next) => {
   return;
 });
 
-/* promise method 
-app.get('/', async (request, response) => {
-
-    response.send( await readFile('./home.html', 'utf8') );
-
-});
-*/
-
+/* App listener */
 app.listen(
     process.env.PORT || PORT, 
     () => console.log(`App available on http://localhost:${PORT}`));
