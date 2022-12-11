@@ -41,37 +41,37 @@
           <div class="prev-date">29</div>
           <div class="prev-date">30</div>
           <!--<div><a href="http://localhost:3000" id="link1" target="_blank">1</a></div>-->
-          <div onclick="webPage(1)">1</div>
-          <div onclick="webPage(1)">2</div>
-          <div onclick="webPage(1)">3</div>
-          <div onclick="webPage(1)">4</div>
-          <div onclick="webPage(1)">5</div>
-          <div onclick="webPage(1)">6</div>
-          <div onclick="webPage(1)">7</div>
-          <div onclick="webPage(1)">8</div>
-          <div onclick="webPage(1)">9</div>
-          <div onclick="webPage(1)">10</div>
-          <div onclick="webPage(1)">11</div>
-          <div onclick="webPage(1)">12</div>
-          <div onclick="webPage(1)">13</div>
-          <div onclick="webPage(1)">14</div>
-          <div onclick="webPage(1)">15</div>
-          <div onclick="webPage(1)">16</div>
-          <div onclick="webPage(1)">17</div>
-          <div onclick="webPage(1)">18</div>
-          <div onclick="webPage(1)">19</div>
-          <div onclick="webPage(1)">20</div>
-          <div onclick="webPage(1)">21</div>
-          <div onclick="webPage(1)">22</div>
-          <div onclick="webPage(1)">23</div>
-          <div onclick="webPage(1)">24</div>
-          <div onclick="webPage(1)">25</div>
-          <div onclick="webPage(1)">26</div>
-          <div onclick="webPage(1)">27</div>
-          <div onclick="webPage(1)">28</div>
-          <div onclick="webPage(1)">29</div>
-          <div onclick="webPage(1)">30</div>
-          <div onclick="webPage(1)">31</div>
+          <div onclick="webPage()">1</div>
+          <div onclick="webPage()">2</div>
+          <div onclick="webPage()">3</div>
+          <div onclick="webPage()">4</div>
+          <div onclick="webPage()">5</div>
+          <div onclick="webPage()">6</div>
+          <div onclick="webPage()">7</div>
+          <div onclick="webPage()">8</div>
+          <div onclick="webPage()">9</div>
+          <div onclick="webPage()">10</div>
+          <div onclick="webPage()">11</div>
+          <div onclick="webPage()">12</div>
+          <div onclick="webPage()">13</div>
+          <div onclick="webPage()">14</div>
+          <div onclick="webPage()">15</div>
+          <div onclick="webPage()">16</div>
+          <div onclick="webPage()">17</div>
+          <div onclick="webPage()">18</div>
+          <div onclick="webPage()">19</div>
+          <div onclick="webPage()">20</div>
+          <div onclick="webPage()">21</div>
+          <div onclick="webPage()">22</div>
+          <div onclick="webPage()">23</div>
+          <div onclick="webPage()">24</div>
+          <div onclick="webPage()">25</div>
+          <div onclick="webPage()">26</div>
+          <div onclick="webPage()">27</div>
+          <div onclick="webPage()">28</div>
+          <div onclick="webPage()">29</div>
+          <div onclick="webPage()">30</div>
+          <div onclick="webPage()">31</div>
           <div class="next-date">1</div>
           <div class="next-date">2</div>
           <div class="next-date">3</div>
@@ -102,20 +102,20 @@
         <script>
           
 
-          function webPage(day){
+          function webPage(){
           {
 
               // Create new xhr object
               const xhr = new XMLHttpRequest();
+              //creates a new form object
               const formData = new FormData();
-
+              //attaches date information to the form
               formData.append(document.querySelector('.date h1').innerHTML);
-              // Open a new connection
-              
+              // Open a new connection   
               console.log('create request');
               xhr.open('GET', 'http://localhost:8080/employees');
               console.log('before send: '+xhr.responseText);
-              // Send request
+              // Send request with date information
               console.log('sending request');
               xhr.send(formData);
               console.log('request sent');
