@@ -39,37 +39,37 @@
           <div class="prev-date">28</div>
           <div class="prev-date">29</div>
           <div class="prev-date">30</div>
-          <div onclick="webPage(1)">1</div>
-          <div onclick="webPage(1)">2</div>
-          <div onclick="webPage(1)">3</div>
-          <div onclick="webPage(1)">4</div>
-          <div onclick="webPage(1)">5</div>
-          <div onclick="webPage(1)">6</div>
-          <div onclick="webPage(1)">7</div>
-          <div onclick="webPage(1)">8</div>
-          <div onclick="webPage(1)">9</div>
-          <div class="today" , onclick="webPage(1)">10</div>
-          <div onclick="webPage(1)">11</div>
-          <div onclick="webPage(1)">12</div>
-          <div onclick="webPage(1)">13</div>
-          <div onclick="webPage(1)">14</div>
-          <div onclick="webPage(1)">15</div>
-          <div onclick="webPage(1)">16</div>
-          <div onclick="webPage(1)">17</div>
-          <div onclick="webPage(1)">18</div>
-          <div onclick="webPage(1)">19</div>
-          <div onclick="webPage(1)">20</div>
-          <div onclick="webPage(1)">21</div>
-          <div onclick="webPage(1)">22</div>
-          <div onclick="webPage(1)">23</div>
-          <div onclick="webPage(1)">24</div>
-          <div onclick="webPage(1)">25</div>
-          <div onclick="webPage(1)">26</div>
-          <div onclick="webPage(1)">27</div>
-          <div onclick="webPage(1)">28</div>
-          <div onclick="webPage(1)">29</div>
-          <div onclick="webPage(1)">30</div>
-          <div onclick="webPage(1)">31</div>
+          <div onclick="webPage('-01')">1</div>
+          <div onclick="webPage('-02')">2</div>
+          <div onclick="webPage('-03')">3</div>
+          <div onclick="webPage('-04')">4</div>
+          <div onclick="webPage('-05')">5</div>
+          <div onclick="webPage('-06')">6</div>
+          <div onclick="webPage('-07')">7</div>
+          <div onclick="webPage('-08')">8</div>
+          <div onclick="webPage('-09')">9</div>
+          <div onclick="webPage('-10')">10</div>
+          <div onclick="webPage('-11')">11</div>
+          <div onclick="webPage('-12')">12</div>
+          <div onclick="webPage('-13')">13</div>
+          <div onclick="webPage('-14')">14</div>
+          <div onclick="webPage('-15')">15</div>
+          <div onclick="webPage('-16')">16</div>
+          <div onclick="webPage('-17')">17</div>
+          <div onclick="webPage('-18')">18</div>
+          <div onclick="webPage('-19')">19</div>
+          <div onclick="webPage('-20')">20</div>
+          <div onclick="webPage('-21')">21</div>
+          <div onclick="webPage('-22')">22</div>
+          <div onclick="webPage('-23')">23</div>
+          <div onclick="webPage('-24')">24</div>
+          <div onclick="webPage('-25')">25</div>
+          <div onclick="webPage('-26')">26</div>
+          <div onclick="webPage('-27')">27</div>
+          <div onclick="webPage('-28')">28</div>
+          <div onclick="webPage('-29')">29</div>
+          <div onclick="webPage('-30')">30</div>
+          <div onclick="webPage('-31')">31</div>
           <div class="next-date">1</div>
           <div class="next-date">2</div>
           <div class="next-date">3</div>
@@ -182,7 +182,17 @@ addEventListener('click', () =>{
 renderCalendar();
     </script>
     <script >
-      function webPage(){
+      function webPage(day){
+        var currentDate = "2022-";
+        var currentMonth = date.getMonth();
+        currentDate.concat(currentMonth);
+        currentDate.concat(day);
+        currentDate.concat(" 00:00:00");
+        
+        communication(currentDate)
+
+      }
+      function communication(currentDate){
           {
 
               // Create new xhr object
@@ -190,7 +200,7 @@ renderCalendar();
               //creates a new form object
               const formData = new FormData();
               //attaches date information to the form
-              formData.append('jobDate', document.querySelector('.date h1').innerHTML);
+              formData.append('jobDate', currentDate);
               // Open a new connection   
               console.log('create request');
               console.log('jobDate: '+formData)
