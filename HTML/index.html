@@ -39,37 +39,37 @@
           <div class="prev-date">28</div>
           <div class="prev-date">29</div>
           <div class="prev-date">30</div>
-          <div onclick="webPage('-01')">1</div>
-          <div onclick="webPage('-02')">2</div>
-          <div onclick="webPage('-03')">3</div>
-          <div onclick="webPage('-04')">4</div>
-          <div onclick="webPage('-05')">5</div>
-          <div onclick="webPage('-06')">6</div>
-          <div onclick="webPage('-07')">7</div>
-          <div onclick="webPage('-08')">8</div>
-          <div onclick="webPage('-09')">9</div>
-          <div onclick="webPage('-10')">10</div>
-          <div onclick="webPage('-11')">11</div>
-          <div onclick="webPage('-12')">12</div>
-          <div onclick="webPage('-13')">13</div>
-          <div onclick="webPage('-14')">14</div>
-          <div onclick="webPage('-15')">15</div>
-          <div onclick="webPage('-16')">16</div>
-          <div onclick="webPage('-17')">17</div>
-          <div onclick="webPage('-18')">18</div>
-          <div onclick="webPage('-19')">19</div>
-          <div onclick="webPage('-20')">20</div>
-          <div onclick="webPage('-21')">21</div>
-          <div onclick="webPage('-22')">22</div>
-          <div onclick="webPage('-23')">23</div>
-          <div onclick="webPage('-24')">24</div>
-          <div onclick="webPage('-25')">25</div>
-          <div onclick="webPage('-26')">26</div>
-          <div onclick="webPage('-27')">27</div>
-          <div onclick="webPage('-28')">28</div>
-          <div onclick="webPage('-29')">29</div>
-          <div onclick="webPage('-30')">30</div>
-          <div onclick="webPage('-31')">31</div>
+          <div onclick="webPage('2022-12-01 00:00:00')">1</div>
+          <div onclick="webPage('2022-12-02 00:00:00')">2</div>
+          <div onclick="webPage('2022-12-03 00:00:00')">3</div>
+          <div onclick="webPage('2022-12-04 00:00:00')">4</div>
+          <div onclick="webPage('2022-12-05 00:00:00')">5</div>
+          <div onclick="webPage('2022-12-06 00:00:00')">6</div>
+          <div onclick="webPage('2022-12-07 00:00:00')">7</div>
+          <div onclick="webPage('2022-12-08 00:00:00')">8</div>
+          <div onclick="webPage('2022-12-09 00:00:00')">9</div>
+          <div onclick="webPage('2022-12-10 00:00:00')">10</div>
+          <div onclick="webPage('2022-12-11 00:00:00')">11</div>
+          <div onclick="webPage('2022-12-12 00:00:00')">12</div>
+          <div onclick="webPage('2022-12-13 00:00:00')">13</div>
+          <div onclick="webPage('2022-12-14 00:00:00')">14</div>
+          <div onclick="webPage('2022-12-15 00:00:00')">15</div>
+          <div onclick="webPage('2022-12-16 00:00:00')">16</div>
+          <div onclick="webPage('2022-12-17 00:00:00')">17</div>
+          <div onclick="webPage('2022-12-18 00:00:00')">18</div>
+          <div onclick="webPage('2022-12-19 00:00:00')">19</div>
+          <div onclick="webPage('2022-12-20 00:00:00')">20</div>
+          <div onclick="webPage('2022-12-21 00:00:00')">21</div>
+          <div onclick="webPage('2022-12-22 00:00:00')">22</div>
+          <div onclick="webPage('2022-12-23 00:00:00')">23</div>
+          <div onclick="webPage('2022-12-24 00:00:00')">24</div>
+          <div onclick="webPage('2022-12-25 00:00:00')">25</div>
+          <div onclick="webPage('2022-12-26 00:00:00')">26</div>
+          <div onclick="webPage('2022-12-27 00:00:00')">27</div>
+          <div onclick="webPage('2022-12-28 00:00:00')">28</div>
+          <div onclick="webPage('2022-12-29 00:00:00')">29</div>
+          <div onclick="webPage('2022-12-30 00:00:00')">30</div>
+          <div onclick="webPage('2022-12-31 00:00:00')">31</div>
           <div class="next-date">1</div>
           <div class="next-date">2</div>
           <div class="next-date">3</div>
@@ -183,24 +183,16 @@ renderCalendar();
     </script>
     <script >
       function webPage(day){
-        var currentDate = "2022-";
-        var currentMonth = date.getMonth();
-        currentDate.concat(currentMonth);
-        currentDate.concat(day);
-        currentDate.concat(" 00:00:00");
-        
-        communication(currentDate)
-
-      }
-      function communication(currentDate){
           {
+
+            
 
               // Create new xhr object
               const xhr = new XMLHttpRequest();
               //creates a new form object
               const formData = new FormData();
               //attaches date information to the form
-              formData.append('jobDate', currentDate);
+              formData.append('jobDate', day);
               // Open a new connection   
               console.log('create request');
               console.log('jobDate: '+formData)
@@ -208,7 +200,7 @@ renderCalendar();
               
               fetch('http://localhost:8080/Jobs', {
                 method: 'POST',
-                body: formData
+                body: day
               }).then(response => {
                 // The string has been sent to the Express app
                 console.log('Form data sent!');
