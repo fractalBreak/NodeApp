@@ -22,7 +22,20 @@ jobsRouter.route('/')
         console.error(`Error while getting all jobs: `, err.message);
         next(err);
       }
-  });
+  })
+  .post(async function(req, res, next) {
+    console.log('ping!');
+    console.log(req.query);
+      try {
+        res.json(await jobs.default(req.query.page));
+      } catch (err) {
+        console.error(`Error while getting all jobs: `, err.message);
+        next(err);
+      }
+  })
+  ;
+
+
   
   
   

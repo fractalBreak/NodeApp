@@ -182,7 +182,53 @@ addEventListener('click', () =>{
 renderCalendar();
     </script>
     <script >
-      
+      function webPage(){
+          {
+
+              // Create new xhr object
+              const xhr = new XMLHttpRequest();
+              //creates a new form object
+              const formData = new FormData();
+              //attaches date information to the form
+              formData.append('jobDate', '12/01/2022')//document.querySelector('.date h1').innerHTML);
+              // Open a new connection   
+              console.log('create request');
+              xhr.open('POST', 'http://localhost:8080/jobs');
+              console.log('before send: '+xhr.responseText);
+              // Send request with date information
+              console.log('sending request');
+              xhr.send(formData);
+              console.log('request sent');
+
+              // Listen for response
+              xhr.onload = function() 
+              {
+                  const response = JSON.parse(xhr.responseText);
+                  console.log('response: '+response.data)
+                  // Get the table row
+                  const tableRow = document.getElementById('tableRow');
+   
+                  // Append the data to the table
+                  response.data.forEach(function(jobRecord) 
+                  {
+                    const row = document.createElement('tr');
+                    const id = document.createElement('td');
+                    const name = document.createElement('td');
+
+                    id.innerHTML = jobRecord.job_address;//formerly employeeRecord.id
+                    name.innerHTML = jobRecord.job_start;//formerly employeeRecord.name_first
+
+                    row.appendChild(id);
+                    row.appendChild(name);
+
+                    tableRow.appendChild(row);
+                  });
+                }
+            }
+
+
+            
+            };
     </script>
   </body>
 </html>
