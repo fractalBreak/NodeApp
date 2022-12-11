@@ -28,6 +28,8 @@ jobsRouter.route('/')
     req.on('data', async (data) => {
       // Print the contents of the form
       console.log(data.toString('utf8'));
+      
+
       try {
         res.json(await jobs.getJobByDate(data));
       } catch (err) {
