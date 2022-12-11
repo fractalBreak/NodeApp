@@ -101,48 +101,50 @@
   
         <script>
           
-          
-
 
           function webPage(day){
-            
-            {
+          {
 
-// Create new xhr object
-const xhr = new XMLHttpRequest();
+              // Create new xhr object
+              const xhr = new XMLHttpRequest();
+              const formData = new FormData();
 
-// Open a new connection
-console.log('create request');
-xhr.open('GET', 'http://localhost:3000/css/index.html');
-console.log('before send: '+xhr.responseText);
-// Send request
-console.log('sending request');
-xhr.send();
-console.log('request sent');
+              formData.append(document.querySelector('.date h1').innerHTML);
+              // Open a new connection
+              
+              console.log('create request');
+              xhr.open('GET', 'http://localhost:8080/employees');
+              console.log('before send: '+xhr.responseText);
+              // Send request
+              console.log('sending request');
+              xhr.send(formData);
+              console.log('request sent');
 
-// Listen for response
-xhr.onload = function() {
-   const response = JSON.parse(xhr.responseText);
-   console.log('response: '+response.data)
-   // Get the table row
-   const tableRow = document.getElementById('tableRow');
+              // Listen for response
+              xhr.onload = function() 
+              {
+                  const response = JSON.parse(xhr.responseText);
+                  console.log('response: '+response.data)
+                  // Get the table row
+                  const tableRow = document.getElementById('tableRow');
    
-   // Append the data to the table
-   response.data.forEach(function(employeeRecord) {
-      const row = document.createElement('tr');
-      const id = document.createElement('td');
-      const name = document.createElement('td');
+                  // Append the data to the table
+                  response.data.forEach(function(employeeRecord) 
+                  {
+                    const row = document.createElement('tr');
+                    const id = document.createElement('td');
+                    const name = document.createElement('td');
 
-      id.innerHTML = employeeRecord.id;
-      name.innerHTML = employeeRecord.name_first;
+                    id.innerHTML = employeeRecord.id;
+                    name.innerHTML = employeeRecord.name_first;
 
-      row.appendChild(id);
-      row.appendChild(name);
+                    row.appendChild(id);
+                    row.appendChild(name);
 
-      tableRow.appendChild(row);
-   });
-}
-}
+                    tableRow.appendChild(row);
+                  });
+                }
+            }
 
 
             
