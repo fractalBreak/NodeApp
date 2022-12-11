@@ -19,18 +19,19 @@ app.use(
 
 
 // GET LOGIN PAGE
+app.use('/css', express.static('./css)'),
 app.get('/', (request, response) => {
-    readFile('./HTML/login.html', 'utf8', (err, html) => {
+    readFile('./css/index.html', 'utf8', (err, html) => {
         if(err){
             response.status(500).send('sorry, out of order');
         }
         response.send(html);
     })
-});
+}),
 
 /* Routers */ 
 //app.use("/", loginRouter);
-app.use("/Employees", employeesRouter);
+app.use("/Employees", employeesRouter),
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
@@ -38,9 +39,9 @@ app.use((err, req, res, next) => {
   console.error(err.message, err.stack);
   res.status(statusCode).json({ message: err.message });
   return;
-});
+}),
 
 /* App listener */
 app.listen(
     process.env.PORT || PORT, 
-    () => console.log(`App available on http://localhost:${PORT}`));
+    () => console.log(`App available on http://localhost:${PORT}`)))

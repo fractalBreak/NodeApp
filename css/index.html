@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="calendar">
+        <div class="month">
+          <i class="fas fa-angle-left prev"></i>
+          <div class="date">
+            <h1></h1>
+            <p></p>
+          </div>
+          <i class="fas fa-angle-right next"></i>
+        </div>
+        <div class="weekdays">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
+        <div class="days">
+          <div class="prev-date">27</div>
+          <div class="prev-date">28</div>
+          <div class="prev-date">29</div>
+          <div class="prev-date">30</div>
+          <!--<div><a href="http://localhost:3000" id="link1" target="_blank">1</a></div>-->
+          <div onclick="webPage()">1</div>
+          <div onclick="webPage()">2</div>
+          <div onclick="webPage()">3</div>
+          <div onclick="webPage()">4</div>
+          <div onclick="webPage()">5</div>
+          <div onclick="webPage()">6</div>
+          <div onclick="webPage()">7</div>
+          <div onclick="webPage()">8</div>
+          <div onclick="webPage()">9</div>
+          <div onclick="webPage()">10</div>
+          <div onclick="webPage()">11</div>
+          <div onclick="webPage()">12</div>
+          <div onclick="webPage()">13</div>
+          <div onclick="webPage()">14</div>
+          <div onclick="webPage()">15</div>
+          <div onclick="webPage()">16</div>
+          <div onclick="webPage()">17</div>
+          <div onclick="webPage()">18</div>
+          <div onclick="webPage()">19</div>
+          <div onclick="webPage()">20</div>
+          <div onclick="webPage()">21</div>
+          <div onclick="webPage()">22</div>
+          <div onclick="webPage()">23</div>
+          <div onclick="webPage()">24</div>
+          <div onclick="webPage()">25</div>
+          <div onclick="webPage()">26</div>
+          <div onclick="webPage()">27</div>
+          <div onclick="webPage()">28</div>
+          <div onclick="webPage()">29</div>
+          <div onclick="webPage()">30</div>
+          <div onclick="webPage()">31</div>
+          <div class="next-date">1</div>
+          <div class="next-date">2</div>
+          <div class="next-date">3</div>
+          <div class="next-date">4</div>
+          <div class="next-date">5</div>
+          <div class="next-date">6</div>
+          <div class="next-date">7</div>
+        </div>
+      
+    <!--for myfunction first find out how to run start.js then find out how to use a link like <a> to get to http://localhost:3000 must execute in this order-->
+      <script type="text/javascript">
+
+       // var myLink = document.getElementById('link1');
+        
+       /* myLink.onclick = function(){
+        
+          var script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = "start.js"; 
+            
+            
+        
+        }*/
+        
+        
+        </script>
+  
+        <script>
+          
+
+          function webPage(){
+          {
+
+              // Create new xhr object
+              const xhr = new XMLHttpRequest();
+              //creates a new form object
+              const formData = new FormData();
+              //attaches date information to the form
+              formData.append(document.querySelector('.date h1').innerHTML);
+              // Open a new connection   
+              console.log('create request');
+              xhr.open('GET', 'http://localhost:8080/jobs');
+              console.log('before send: '+xhr.responseText);
+              // Send request with date information
+              console.log('sending request');
+              xhr.send(formData);
+              console.log('request sent');
+
+              // Listen for response
+              xhr.onload = function() 
+              {
+                  const response = JSON.parse(xhr.responseText);
+                  console.log('response: '+response.data)
+                  // Get the table row
+                  const tableRow = document.getElementById('tableRow');
+   
+                  // Append the data to the table
+                  response.data.forEach(function(jobRecord) 
+                  {
+                    const row = document.createElement('tr');
+                    const id = document.createElement('td');
+                    const name = document.createElement('td');
+
+                    id.innerHTML = jobRecord.job_address;//formerly employeeRecord.id
+                    name.innerHTML = jobRecord.job_start;//formerly employeeRecord.name_first
+
+                    row.appendChild(id);
+                    row.appendChild(name);
+
+                    tableRow.appendChild(row);
+                  });
+                }
+            }
+
+
+            
+            };
+          
+        </script>
+    <script src="script.js"></script>
+  </body>
+</html>
