@@ -27,7 +27,8 @@ jobsRouter.route('/')
     console.log('ping!');
     req.on('data', async (data) => {
       // Print the contents of the form
-      console.log(data.toString('utf8'));
+      var datetouse = data.toString('utf8')
+      console.log(datetouse);
       
 
       try {
