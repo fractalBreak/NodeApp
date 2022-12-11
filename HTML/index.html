@@ -190,11 +190,23 @@ renderCalendar();
               //creates a new form object
               const formData = new FormData();
               //attaches date information to the form
-              formData.append('jobDate', '12/01/2022')//document.querySelector('.date h1').innerHTML);
+              formData.append('jobDate', document.querySelector('.date h1').innerHTML);
               // Open a new connection   
               console.log('create request');
+              console.log('jobDate: '+formData)
+
+              
+              fetch('http://localhost:8080/Jobs', {
+                method: 'POST',
+                body: formData
+              }).then(response => {
+                // The string has been sent to the Express app
+                console.log('Form data sent!');
+              });
+
+              /*
               xhr.open('POST', 'http://localhost:8080/jobs');
-              console.log('before send: '+xhr.responseText);
+              console.log('before send: '+xhr.body['jobDate']);
               // Send request with date information
               console.log('sending request');
               xhr.send(formData);
@@ -223,12 +235,13 @@ renderCalendar();
 
                     tableRow.appendChild(row);
                   });
-                }
+                }*/
             }
 
 
             
             };
+            
     </script>
   </body>
 </html>

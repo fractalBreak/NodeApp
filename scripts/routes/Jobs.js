@@ -25,17 +25,22 @@ jobsRouter.route('/')
   })
   .post(async function(req, res, next) {
     console.log('ping!');
-    console.log(req.query);
+    req.on('data', async (data) => {
+      // Print the contents of the form
+      console.log(data.toString('utf8'));
       try {
-        res.json(await jobs.default(req.query.page));
+        res.json(await jobs.getJobByDate(data));
       } catch (err) {
-        console.error(`Error while getting all jobs: `, err.message);
+        console.error(`Error while posting jobs: `, err.message);
         next(err);
       }
-  })
-  ;
+    }) 
+  });
 
 
+
+
+  
   
   
   
