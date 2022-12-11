@@ -11,7 +11,6 @@ jobsRouter.route('/')
   });
 */
 
-
 /* Job Routes */
 jobsRouter.route('/')
   .get(async function(req, res, next) {
