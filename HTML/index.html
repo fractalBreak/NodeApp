@@ -199,7 +199,7 @@ renderCalendar();
       function webPage(day){
           {
               // Create new xhr object
-              const xhr = new XMLHttpRequest(); 
+              //const xhr = new XMLHttpRequest(); 
               //console.log('create request');
               //console.log('jobDate: '+formData);
 
@@ -207,14 +207,34 @@ renderCalendar();
               fetch('http://localhost:8080/Jobs', {
                 method: 'POST',
                 body: day
-              }).then(response => {
-                // The string has been sent to the Express app
-                //console.log('Form data sent!');
+              }).then((response) => {
+                  console.log("we loaded!");
+                  console.log('response: '+response);
+                  //response = JSON.parse(xhr.responseText);
+                  // Get the table row
+                  const tableRow = document.getElementById('tableRow');
+   
+                  // Append the data to the table
+                  response.forEach(function(jobRecord) 
+                  {
+                    const row = document.createElement('tr');
+                    const id = document.createElement('td');
+                    const name = document.createElement('td');
+
+                    id.innerHTML = jobRecord.job_address;//formerly employeeRecord.id
+                    name.innerHTML = jobRecord.job_start;//formerly employeeRecord.name_first
+
+                    row.appendChild(id);
+                    row.appendChild(name);
+
+                    tableRow.appendChild(row);
+                  });
               });
- 
+              /*
               // Listen for response
               xhr.onload = function() 
               {
+                  console.log("we loaded!");
                   const response = JSON.parse(xhr.responseText);
                   console.log('response: '+response.data)
                   // Get the table row
@@ -235,7 +255,7 @@ renderCalendar();
 
                     tableRow.appendChild(row);
                   });
-              }
+              } */
             }
         };
             

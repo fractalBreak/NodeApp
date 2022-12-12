@@ -22,14 +22,12 @@ export async function getJobByDate(input){
   const rows = await db.default(
     `SELECT *
     FROM apointdb.job
-    where DATE(job_start) > DATE('${input}')`
+    where DATE(job_start) = DATE('${input}')`
   )
-  const data = helper.emptyOrRows(rows);
-  const meta = {page};
-
+  console.log(rows);
+  //const data = helper.emptyOrRows(rows);
   return {
-    data,
-    meta
+    data
   }
 }
 
