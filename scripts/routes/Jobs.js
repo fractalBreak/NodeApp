@@ -31,6 +31,7 @@ jobsRouter.route('/')
       //console.log(datetouse);
       try {
         res.json(await jobs.getJobByDate(datetouse));
+        console.log(res);
       } catch (err) {
         console.error(`Error while posting jobs: `, err.message);
         next(err);

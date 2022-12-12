@@ -207,15 +207,16 @@ renderCalendar();
               fetch('http://localhost:8080/Jobs', {
                 method: 'POST',
                 body: day
-              }).then((response) => {
+              }).then(response => {
                   console.log("we loaded!");
                   console.log('response: '+response);
                   console.log('r: '+response);
-                  console.log(response.keys());
+                  console.log(response.body.json());
+
                   //response = JSON.parse(response.json());
                   // Get the table row
                   const tableRow = document.getElementById('tableRow');
-   
+/*
                   // Append the data to the table
                   response.data.forEach(function(jobRecord) 
                   {
@@ -230,7 +231,7 @@ renderCalendar();
                     row.appendChild(name);
 
                     tableRow.appendChild(row);
-                  });
+                  });*/
               });
               /*
               // Listen for response
