@@ -1,6 +1,6 @@
 import * as db from './db.js';
-import * as helper from '../helper.js';
-import config from '../config.js';
+import * as helper from './helper.js';
+import config from './config.js';
 
 // GET LOGIN PAGE
 export default function readFile() {

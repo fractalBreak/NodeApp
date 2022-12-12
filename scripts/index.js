@@ -11,6 +11,7 @@ const PORT = 8080;
 
 /* universal middleware */
 app.use("/css",express.static("./css"));
+app.use("/",express.static("./HTML"));
 app.use(express.json());
 app.use(
   express.urlencoded({
