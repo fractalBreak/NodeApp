@@ -210,12 +210,14 @@ renderCalendar();
               }).then((response) => {
                   console.log("we loaded!");
                   console.log('response: '+response);
-                  //response = JSON.parse(xhr.responseText);
+                  console.log('r: '+response);
+                  console.log(response.keys());
+                  //response = JSON.parse(response.json());
                   // Get the table row
                   const tableRow = document.getElementById('tableRow');
    
                   // Append the data to the table
-                  response.forEach(function(jobRecord) 
+                  response.data.forEach(function(jobRecord) 
                   {
                     const row = document.createElement('tr');
                     const id = document.createElement('td');
