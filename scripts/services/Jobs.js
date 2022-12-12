@@ -18,13 +18,16 @@ export default async function getAllJobs(page = 1){
 }
 
 export async function getJobByDate(input){
-  console.log('gettingJobByDate!');
-  console.log('toString: '+ input.toString());
-  console.log('jobdate: '+input['jobDate']);
+  console.log('gettingJobByDate! date: '+input);
   const rows = await db.default(
     `SELECT *
-    FROM apointdb.job j
-    where DATE(j.job_start) > ${input}`
+    FROM apointdb.job
+    where DATE(job_start) = DATE('${input}')`
   )
+  console.log(rows);
+  //const data = helper.emptyOrRows(rows);
+  return {
+    data
+  }
 }
 

@@ -24,7 +24,7 @@ jobsRouter.route('/')
       }
   })
   .post(async function(req, res, next) {
-    console.log('ping!');
+    //console.log('ping!');
     req.on('data', async (data) => {
       // Print the contents of the form
       var datetouse = data.toString('utf8')
@@ -32,13 +32,14 @@ jobsRouter.route('/')
       
 
       try {
-        res.json(await jobs.getJobByDate(data));
+        res.json(await jobs.getJobByDate(datetouse));
       } catch (err) {
         console.error(`Error while posting jobs: `, err.message);
         next(err);
       }
     }) 
-  });
+  })
+  ;
 
 
 

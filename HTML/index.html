@@ -79,6 +79,20 @@
           <div class="next-date">7</div>
         </div>
       </div>
+      <div>
+          <table>
+              <tr>
+                 <th>ID</th>
+                 <th>Name</th>
+              </tr>
+              <tbody id="tableRow">
+                  <tr>
+                    <td>test1</td>
+                    <td>test2</td>
+                  </tr>
+              </tbody>
+           </table>
+      </div>
     </div>
     <!--for myfunction first find out how to run start.js then find out how to use a link like <a> to get to http://localhost:3000 must execute in this order-->
     <script type="text/javascript">
@@ -184,39 +198,45 @@ renderCalendar();
     <script >
       function webPage(day){
           {
-
-            
-
               // Create new xhr object
-              const xhr = new XMLHttpRequest();
-              //creates a new form object
-              const formData = new FormData();
-              //attaches date information to the form
-              formData.append('jobDate', day);
-              // Open a new connection   
-              console.log('create request');
-              console.log('jobDate: '+formData)
+              //const xhr = new XMLHttpRequest(); 
+              //console.log('create request');
+              //console.log('jobDate: '+formData);
 
-              
+              // Initializes the request
               fetch('http://localhost:8080/Jobs', {
                 method: 'POST',
                 body: day
-              }).then(response => {
-                // The string has been sent to the Express app
-                console.log('Form data sent!');
+              }).then((response) => {
+                  console.log("we loaded!");
+                  console.log('response: '+response);
+                  console.log('r: '+response);
+                  console.log(response.keys());
+                  //response = JSON.parse(response.json());
+                  // Get the table row
+                  const tableRow = document.getElementById('tableRow');
+   
+                  // Append the data to the table
+                  response.data.forEach(function(jobRecord) 
+                  {
+                    const row = document.createElement('tr');
+                    const id = document.createElement('td');
+                    const name = document.createElement('td');
+
+                    id.innerHTML = jobRecord.job_address;//formerly employeeRecord.id
+                    name.innerHTML = jobRecord.job_start;//formerly employeeRecord.name_first
+
+                    row.appendChild(id);
+                    row.appendChild(name);
+
+                    tableRow.appendChild(row);
+                  });
               });
-
               /*
-              xhr.open('POST', 'http://localhost:8080/jobs');
-              console.log('before send: '+xhr.body['jobDate']);
-              // Send request with date information
-              console.log('sending request');
-              xhr.send(formData);
-              console.log('request sent');
-
               // Listen for response
               xhr.onload = function() 
               {
+                  console.log("we loaded!");
                   const response = JSON.parse(xhr.responseText);
                   console.log('response: '+response.data)
                   // Get the table row
@@ -237,12 +257,9 @@ renderCalendar();
 
                     tableRow.appendChild(row);
                   });
-                }*/
+              } */
             }
-
-
-            
-            };
+        };
             
     </script>
   </body>
