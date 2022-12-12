@@ -24,5 +24,12 @@ export async function getJobByDate(input){
     FROM apointdb.job
     where DATE(job_start) > DATE('${input}')`
   )
+  const data = helper.emptyOrRows(rows);
+  const meta = {page};
+
+  return {
+    data,
+    meta
+  }
 }
 
