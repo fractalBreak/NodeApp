@@ -107,9 +107,14 @@ html{
 .today{
     background-color: #167e56;
 }
-.jobTable div{
-    position: absolute;
-  left: 100%;
-  bottom: 0;
-  
-}
+.jobTable{
+    text-shadow: 0 .3rem .5rem rgba(0,0,0,0.5);
+    font-size: large;
+    height: 24rem;
+    width: 25%;
+    background-color: #167e56;
+    position:relative;
+    left: 25%;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
