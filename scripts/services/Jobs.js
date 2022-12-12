@@ -25,7 +25,7 @@ export async function getJobByDate(input){
     where DATE(job_start) = DATE('${input}')`
   )
   console.log(rows);
-  //const data = helper.emptyOrRows(rows);
+  const data = helper.emptyOrRows(rows);
   return {
     data
   }
