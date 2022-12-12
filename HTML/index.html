@@ -48,7 +48,7 @@
           <div onclick="webPage(1)">7</div>
           <div onclick="webPage(1)">8</div>
           <div onclick="webPage(1)">9</div>
-          <div class="today" , onclick="webPage(1)">10</div>
+          <div onclick="webPage('2022-12-10 00:00:00')">10</div>
           <div onclick="webPage(1)">11</div>
           <div onclick="webPage(1)">12</div>
           <div onclick="webPage(1)">13</div>
@@ -182,9 +182,8 @@ addEventListener('click', () =>{
 renderCalendar();
     </script>
     <script >
-      function webPage(){
+      function webPage(day){
           {
-
               // Create new xhr object
               const xhr = new XMLHttpRequest();
               //creates a new form object
@@ -198,7 +197,7 @@ renderCalendar();
               
               fetch('http://localhost:8080/Jobs', {
                 method: 'POST',
-                body: formData
+                body: day
               }).then(response => {
                 // The string has been sent to the Express app
                 console.log('Form data sent!');
@@ -235,12 +234,9 @@ renderCalendar();
 
                     tableRow.appendChild(row);
                   });
-                }*/
+              }*/
             }
-
-
-            
-            };
+        };
             
     </script>
   </body>

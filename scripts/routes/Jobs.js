@@ -11,6 +11,7 @@ jobsRouter.route('/')
   });
 */
 
+
 /* Job Routes */
 jobsRouter.route('/')
   .get(async function(req, res, next) {
@@ -26,15 +27,18 @@ jobsRouter.route('/')
     console.log('ping!');
     req.on('data', async (data) => {
       // Print the contents of the form
-      console.log(data.toString('utf8'));
+      //console.log(data.toString('utf8'));
+      var datetouse = data.toString('utf8')
+      console.log(datetouse);
       try {
-        res.json(await jobs.getJobByDate(data));
+        res.json(await jobs.getJobByDate(datetouse));
       } catch (err) {
         console.error(`Error while posting jobs: `, err.message);
         next(err);
       }
     }) 
-  });
+  })
+  ;
 
 
 
