@@ -79,7 +79,7 @@
           <div class="next-date">7</div>
         </div>
       </div>
-      <div>
+      <div id="jobTable">
           <table>
               <tr>
                  <th>ID</th>
@@ -198,31 +198,16 @@ renderCalendar();
     <script >
       function webPage(day){
           {
-              // Create new xhr object
-              //const xhr = new XMLHttpRequest(); 
-              //console.log('create request');
-              //console.log('jobDate: '+formData);
-
               // Initializes the request
               fetch('http://localhost:8080/Jobs', {
                 method: 'POST',
                 body: day
-              }) .then(function(response) {
-                    return response.json();
-                  })
-                  .then(function(data) {
-                     data
-                  });/*.then(Response => {
-                  console.log("we loaded!");
-                  console.log('response: '+Response);
-                  console.log('r: '+response);
-                  console.log(response.keys());
-                  //response = JSON.parse(response.json());
-                  // Get the table row
-                  const tableRow = document.getElementById('tableRow');
-   
-                  // Append the data to the table
-                  response.data.forEach(function(jobRecord) 
+              })
+              .then(function(response) {
+                  return response.json();
+              })
+              .then(function(response) {
+                response.data.forEach(function(jobRecord) 
                   {
                     const row = document.createElement('tr');
                     const id = document.createElement('td');
@@ -236,33 +221,8 @@ renderCalendar();
 
                     tableRow.appendChild(row);
                   });
-              });*/
-              /*
-              // Listen for response
-              xhr.onload = function() 
-              {
-                  console.log("we loaded!");
-                  const response = JSON.parse(xhr.responseText);
-                  console.log('response: '+response.data)
-                  // Get the table row
-                  const tableRow = document.getElementById('tableRow');
-   
-                  // Append the data to the table
-                  response.data.forEach(function(jobRecord) 
-                  {
-                    const row = document.createElement('tr');
-                    const id = document.createElement('td');
-                    const name = document.createElement('td');
-
-                    id.innerHTML = jobRecord.job_address;//formerly employeeRecord.id
-                    name.innerHTML = jobRecord.job_start;//formerly employeeRecord.name_first
-
-                    row.appendChild(id);
-                    row.appendChild(name);
-
-                    tableRow.appendChild(row);
-                  });
-              } */
+              });
+              
             }
         };
             
