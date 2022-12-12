@@ -107,3 +107,9 @@ html{
 .today{
     background-color: #167e56;
 }
+.jobTable div{
+    position: absolute;
+  left: 100%;
+  bottom: 0;
+  
+}
