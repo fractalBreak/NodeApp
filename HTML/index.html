@@ -207,9 +207,14 @@ renderCalendar();
               fetch('http://localhost:8080/Jobs', {
                 method: 'POST',
                 body: day
-              }).then((response) => {
+              }) .then(function(response) {
+                    return response.json();
+                  })
+                  .then(function(data) {
+                     data
+                  });/*.then(Response => {
                   console.log("we loaded!");
-                  console.log('response: '+response);
+                  console.log('response: '+Response);
                   console.log('r: '+response);
                   console.log(response.keys());
                   //response = JSON.parse(response.json());
@@ -231,7 +236,7 @@ renderCalendar();
 
                     tableRow.appendChild(row);
                   });
-              });
+              });*/
               /*
               // Listen for response
               xhr.onload = function() 
