@@ -79,6 +79,11 @@
           <div class="next-date">7</div>
         </div>
       </div>
+      <div>
+        <table>
+          
+        </table>
+      </div>
     </div>
     <!--for myfunction first find out how to run start.js then find out how to use a link like <a> to get to http://localhost:3000 must execute in this order-->
     <script type="text/javascript">
@@ -185,32 +190,19 @@ renderCalendar();
       function webPage(day){
           {
               // Create new xhr object
-              const xhr = new XMLHttpRequest();
-              //creates a new form object
-              const formData = new FormData();
-              //attaches date information to the form
-              formData.append('jobDate', document.querySelector('.date h1').innerHTML);
-              // Open a new connection   
-              console.log('create request');
-              console.log('jobDate: '+formData)
+              const xhr = new XMLHttpRequest(); 
+              //console.log('create request');
+              //console.log('jobDate: '+formData);
 
-              
+              // Initializes the request
               fetch('http://localhost:8080/Jobs', {
                 method: 'POST',
                 body: day
               }).then(response => {
                 // The string has been sent to the Express app
-                console.log('Form data sent!');
+                //console.log('Form data sent!');
               });
-
-              /*
-              xhr.open('POST', 'http://localhost:8080/jobs');
-              console.log('before send: '+xhr.body['jobDate']);
-              // Send request with date information
-              console.log('sending request');
-              xhr.send(formData);
-              console.log('request sent');
-
+ 
               // Listen for response
               xhr.onload = function() 
               {
@@ -234,7 +226,7 @@ renderCalendar();
 
                     tableRow.appendChild(row);
                   });
-              }*/
+              }
             }
         };
             
